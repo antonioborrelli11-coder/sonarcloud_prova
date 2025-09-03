@@ -1,0 +1,36 @@
+name: Build e Test del Progetto
+
+# Questo workflow si attiva su ogni push e pull request sul branch 'main'
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Un workflow può avere uno o più job. Qui ne definiamo uno chiamato 'build'.
+jobs:
+  build:
+    # Specifica su quale tipo di macchina virtuale eseguire il job.
+    # 'ubuntu-latest' è la scelta più comune per i progetti C/C++.
+    runs-on: ubuntu-latest
+
+    # I 'steps' sono i passaggi che il tuo job deve seguire in ordine.
+    steps:
+      # Step 1: Clona il tuo codice dalla repository. Questo è sempre il primo passo.
+      - name: Checkout del Codice
+        uses: actions/checkout@v4
+      
+      # Step 2: Installa il compilatore GCC e altri strumenti essenziali per la build.
+      - name: Installa gli strumenti di compilazione C
+        run: sudo apt-get update && sudo apt-get install -y gcc make
+
+      # Step 3: Compila il programma C.
+      # Se il tuo progetto ha un Makefile, puoi usare 'make'.
+      # Altrimenti, puoi usare direttamente 'gcc' per compilare il tuo file sorgente.
+      - name: Compila il programma
+        run: gcc -o my_program my_program.c
+
+      # Step 4: Esegui il programma compilato.
+      # Questo passo verifica che il programma si esegua senza errori.
+      - name: Esegui il programma
+        run: ./my_program
