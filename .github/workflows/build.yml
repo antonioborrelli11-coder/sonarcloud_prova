@@ -28,9 +28,9 @@ jobs:
       # Se il tuo progetto ha un Makefile, puoi usare 'make'.
       # Altrimenti, puoi usare direttamente 'gcc' per compilare il tuo file sorgente.
       - name: Compila il programma
-        run: gcc -o my_program my_program.c
+        run: gcc -o main main.c
 
       # Step 4: Esegui il programma compilato.
       # Questo passo verifica che il programma si esegua senza errori.
       - name: Esegui il programma
-        run: ./my_program
+        run: ./main
